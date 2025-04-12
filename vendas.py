@@ -1,11 +1,22 @@
+import os
 import sqlalchemy as sa
 from sqlalchemy.orm import declarative_base
 
+# Ensure the DB directory exists
+db_dir = os.path.join(os.path.dirname(__file__), 'DB')
+if not os.path.exists(db_dir):
+    os.makedirs(db_dir)
+
 # Database engine
-engine = sa.create_engine('sqlite:///DB/vendas.db')
+engine = sa.create_engine(f'sqlite:///{db_dir}/vendas.db', connect_args={"check_same_thread": False})
+
+# Enable foreign key constraints in SQLite
+with engine.connect() as conn:
+    conn.execute(sa.text("PRAGMA foreign_keys = ON"))
 
 # Base class for ORM models
 Base = declarative_base()
+
 
 # Tabela Cliente
 class Cliente(Base):
