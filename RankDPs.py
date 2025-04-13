@@ -1,8 +1,13 @@
+# Script to rank police departments (DPs) in the capital by the number of occurrences
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 import sys
-sys.path.append(r'c:\\Users\\Rafael\\OneDrive\\Área de Trabalho\\PUCRS\\ORM\\bdrelacional\\')
-import Ocorrencias as oc 
+sys.path.append('c:\\Users\\Rafael\\OneDrive\\Área de Trabalho\\PUCRS\\ORM\\bdrelacional\\')
+try:
+    import Ocorrencias as oc
+except ModuleNotFoundError:
+    print("The module 'Ocorrencias' could not be found. Ensure 'Ocorrencias.py' exists in the specified directory.")
+    raise
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
